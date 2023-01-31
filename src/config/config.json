@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Ingkarats12!",
+    "database": "Project_Netflix",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Ingkarats12!",
+    "database": "Project_Netflix",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Ingkarats12!",
+    "database": "Project_Netflix",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
