@@ -34,6 +34,7 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
+      console.log(req.body);
         const value = validateLogin(req.body)
 
         const user = await User.findOne({
