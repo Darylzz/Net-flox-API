@@ -9,9 +9,7 @@ exports.createProfile = async (req, res, next) => {
             title: req.body.title,
             image: req.file?.path
         })
-        if (value.image) {
-            value.image =  fs.writeFile(storage)
-        }
+        
         value.userId = req.user.id
 
         const profile = await Profile.create({
@@ -22,7 +20,11 @@ exports.createProfile = async (req, res, next) => {
         res.status(201).json({profile})
     }catch(err) {
         next(err)
-    }  
+    }finally {
+        if (req.file) {
+            fs.unlinkSync(req.file.path)
+        }
+    }
 }
 
 exports.deleteProfile = async (req, res, next) => {
