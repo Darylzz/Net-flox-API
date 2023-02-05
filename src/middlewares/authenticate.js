@@ -1,4 +1,6 @@
 const createError = require("../util/createError")
+const jwt = require("jsonwebtoken")
+const {User} = require("../models")
 
 module.exports = async (req, res, next) => {
     try {
@@ -16,12 +18,12 @@ module.exports = async (req, res, next) => {
                 exclude: ["password"]
             }
         })
+        // console.log(User)
         if (!user) {
             createError("you are unauthorized", 401)
         }
         req.user= user
         next()
     }catch(err) {
-        next(err)
     }
 }
