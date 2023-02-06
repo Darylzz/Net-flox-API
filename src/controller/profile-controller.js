@@ -5,6 +5,7 @@ const storage = require("../middlewares/upload")
 const {Profile} = require("../models")
 exports.createProfile = async (req, res, next) => {
     try {
+        console.log("eiei");
         const value = validateCreateProfile({
             title: req.body.title,
             image: req.file?.path
