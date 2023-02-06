@@ -1,18 +1,19 @@
 const fs = require("fs")
+const path = require('path')
 const {validateCreateProfile} = require("../validator/profile-validate")
 const createError = require("../util/createError")
 const storage = require("../middlewares/upload")
 const {Profile} = require("../models")
 exports.createProfile = async (req, res, next) => {
     try {
-        console.log("eiei");
+        
         const value = validateCreateProfile({
             title: req.body.title,
             image: req.file?.path
         })
         
         value.userId = req.user.id
-
+        
         const profile = await Profile.create({
             profileName: value.title,
             profileImage: value.image,
@@ -21,16 +22,41 @@ exports.createProfile = async (req, res, next) => {
         res.status(201).json({profile})
     }catch(err) {
         next(err)
-    }finally {
-        if (req.file) {
-            fs.unlinkSync(req.file.path)
+    }
+}
+
+exports.getAllProfileIncludeUser = async (req, res, next) => {
+    try {
+        const profile = await Profile.findAll({
+            where: {
+                userId: req.user.id
+            }
+        })
+        res.status(200).json({ profile })
+    }catch(err) {
+        next(err)
+    }
+}
+
+exports.getProfileById = async (req, res, next) => {
+    try {
+        const profile = await Profile.findOne({
+            where: {
+                id: req.params.profileId
+            }
+        })
+        if(!profile) {
+            createError("This profile is not match", 400)
         }
+        res.status(200).json({profile})
+    }catch(err) {
+        next(err)
     }
 }
 
 exports.deleteProfile = async (req, res, next) => {
     try {
-        const profile = await Profile.findOne({ where: {id: req.params.userId}})
+        const profile = await Profile.findOne({ where: {id: req.params.profileId}})
         if (!profile) {
             createError("This profile not found", 400)
         }

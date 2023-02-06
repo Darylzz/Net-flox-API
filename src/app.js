@@ -10,7 +10,7 @@ const authRoute = require("./routes/auth-route")
 // sequelize.sync({force : true})
 
 const app = express();
-
+app.use('/public', express.static('public'))
 app.use(express.json())
 
 app.use(cors());
