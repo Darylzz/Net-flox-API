@@ -16,13 +16,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      movieTrailer: {
+      movieName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
-        },
-      },
+          notEmpty: true
+        }
+      }
     },
     {
       underscored: true,

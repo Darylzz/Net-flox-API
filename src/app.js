@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors")
 const profileRoute = require("./routes/profile-route")
+const movieRoute = require("./routes/movie-route")
 const authenticateMiddleware = require("./middlewares/authenticate")
 const notFoundMiddleware = require("./middlewares/notFound")
 const ErrorMiddleware = require("./middlewares/error")
@@ -17,6 +18,7 @@ app.use(cors());
 
 app.use("/auth",authRoute)
 app.use("/profile", authenticateMiddleware, profileRoute)
+app.use("/movie", authenticateMiddleware, movieRoute)
 
 app.use(notFoundMiddleware)
 
