@@ -7,4 +7,5 @@ const createProfile = Joi.object({
     image: Joi.string().trim()
 }).or("title","image")
 
+
 exports.validateCreateProfile = validate(createProfile)

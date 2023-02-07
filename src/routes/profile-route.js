@@ -6,6 +6,7 @@ const router = express.Router()
 router.get("/", profileController.getAllProfileIncludeUser)
 router.get("/:profileId",profileController.getProfileById)
 router.post("/", upload.single("profileImage"), profileController.createProfile)
+router.patch("/:profileId", upload.single("profileImage"), profileController.updateProfileById)
 router.delete("/:profileId", profileController.deleteProfile)
 
 module.exports = router

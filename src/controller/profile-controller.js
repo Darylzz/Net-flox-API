@@ -53,6 +53,36 @@ exports.getProfileById = async (req, res, next) => {
   }
 };
 
+exports.updateProfileById = async (req, res, next) => {
+  try {
+    const value = validateCreateProfile({
+      title: req.body.title,
+      image: req.file?.path,
+    });
+    console.log(value.title, value.image);
+    // const profile = await Profile.findOne({
+    //   where: {
+    //     id: req.params.profileId
+    //   }
+    // })
+    const result = await Profile.update(
+      {
+        profileName: value.title,
+        profileImage: value.image,
+      },
+      {
+        where: {
+          id: req.params.profileId,
+        },
+      }
+    );
+    console.log(req.params.profileId);
+    res.status(200).json({ result });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.deleteProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({
@@ -65,7 +95,7 @@ exports.deleteProfile = async (req, res, next) => {
       createError("You have no permission delete this profile", 403);
     }
     await profile.destroy();
-    res.status(204).json({profile});
+    res.status(204).json({ profile });
   } catch (err) {
     next(err);
   }
