@@ -21,10 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         name: "userId",
         allowNull: false
       }
-    })
-    Profile.belongsTo(db.Movie, {
+    }),
+    Profile.hasMany(db.WatchList, {
       foreignKey: {
-        name: "movieId"
+        name: "profileId",
+        allowNull: false
       }
     })
   }

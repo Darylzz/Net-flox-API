@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Movie.associate = (db) => {
-    Movie.hasMany(db.Profile, {
+    Movie.hasMany(db.WatchList, {
       foreignKey: {
         name: "movieId",
       },
