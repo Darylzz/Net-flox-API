@@ -6,6 +6,7 @@ const authenticateMiddleware = require("./middlewares/authenticate")
 const notFoundMiddleware = require("./middlewares/notFound")
 const ErrorMiddleware = require("./middlewares/error")
 const authRoute = require("./routes/auth-route")
+const watchListRoute = require("./routes/watchList-route")
 // const { sequelize } = require("./models")
 
 // sequelize.sync({force : true})
@@ -19,6 +20,7 @@ app.use(cors());
 app.use("/auth",authRoute)
 app.use("/profile", authenticateMiddleware, profileRoute)
 app.use("/movie", authenticateMiddleware, movieRoute)
+app.use("/watchlist", authenticateMiddleware, watchListRoute)
 
 app.use(notFoundMiddleware)
 

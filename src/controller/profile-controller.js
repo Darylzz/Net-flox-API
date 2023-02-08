@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const { validateCreateProfile } = require("../validator/profile-validate");
 const createError = require("../util/createError");
-const storage = require("../middlewares/upload");
 const { Profile } = require("../models");
 exports.createProfile = async (req, res, next) => {
   try {
