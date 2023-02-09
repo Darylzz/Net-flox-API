@@ -24,3 +24,18 @@ exports.getMovieById = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.createMovie = async (req, res, next) => {
+    try {
+        const movie = await Movie.create({
+            moviePic: req.file?.path,
+            movieDes: req.body.title,
+            movieName: req.body.title,
+            movieTrailer: req.body.title,
+            categoryId: req.body.title
+        })
+        res.status(201).json({ movie })
+    }catch(err) {
+        next(err)
+    }
+}

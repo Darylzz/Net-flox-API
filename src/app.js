@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors")
 const profileRoute = require("./routes/profile-route")
 const movieRoute = require("./routes/movie-route")
+const categoryRoute = require("./routes/category-route")
 const authenticateMiddleware = require("./middlewares/authenticate")
 const notFoundMiddleware = require("./middlewares/notFound")
 const ErrorMiddleware = require("./middlewares/error")
@@ -21,6 +22,7 @@ app.use("/auth",authRoute)
 app.use("/profile", authenticateMiddleware, profileRoute)
 app.use("/movie", authenticateMiddleware, movieRoute)
 app.use("/watchlist", authenticateMiddleware, watchListRoute)
+app.use("/category", authenticateMiddleware, categoryRoute)
 
 app.use(notFoundMiddleware)
 

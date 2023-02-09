@@ -41,18 +41,19 @@ exports.findWatchListByProfileId = async (req, res, next) => {
 
 exports.deleteWatchList = async (req, res, next) => {
   try {
+    const { watchlistId, profileId } = req.params;
     const watchList = await WatchList.findOne({
       where: {
-        id: +req.params.watchlistId,
+        id: watchlistId,
       },
     });
     if (!watchList) {
       createError("This watch list not match", 400);
     }
-    if (watchList.profileId !== +req.query.profileid) {
+    if (watchList.profileId !== +profileId) {
       createError("You have no permission delete this movie", 403);
     }
-    await watchList.destroy( {where: {id: watchList }});
+    await watchList.destroy({ where: { id: watchList } });
     res.status(204).json({ watchList });
   } catch (err) {
     next(err);
