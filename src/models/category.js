@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     Category.hasMany(db.Movie, {
         foreignKey: {
             name: "categoryId",
-            allowNull: false
         }
     })
   }

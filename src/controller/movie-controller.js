@@ -1,5 +1,7 @@
+const path = require("path")
 const { Op } = require("sequelize");
 const { Movie } = require("../models");
+const {validateCreateMovie} = require("../validator/movie-validate")
 const createError = require("../util/createError");
 exports.getAllMovie = async (req, res, next) => {
   try {
@@ -46,16 +48,22 @@ exports.getMovieByName = async (req, res, next) => {
 };
 
 exports.createMovie = async (req, res, next) => {
-  try {
-    const movie = await Movie.create({
-      moviePic: req.file?.path,
-      movieDes: req.body.title,
-      movieName: req.body.title,
-      movieTrailer: req.body.title,
-      categoryId: req.body.title,
-    });
-    res.status(201).json({ movie });
-  } catch (err) {
-    next(err);
-  }
-};
+    try {
+        const value = validateCreateMovie({
+            moviePic: req.file?.path,
+            movieDes: req.body.movieDes,
+            movieName: req.body.movieName,
+            movieTrailer: req.body.movieTrailer,
+        })
+
+        const movie = await Movie.create({
+            moviePic: value.moviePic,
+            movieDes: value.movieDes,
+            movieName: value.movieName,
+            movieTrailer: value.movieTrailer,
+        })
+        res.status(201).json({ movie })
+    }catch(err) {
+        next(err)
+    }
+}
