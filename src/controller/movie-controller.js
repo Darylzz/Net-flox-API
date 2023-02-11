@@ -53,14 +53,14 @@ exports.createMovie = async (req, res, next) => {
             moviePic: req.file?.path,
             movieDes: req.body.movieDes,
             movieName: req.body.movieName,
-            movieTrailer: req.body.movieTrailer,
+            movieTrailer: req.body.movieTrailer
         })
 
         const movie = await Movie.create({
             moviePic: value.moviePic,
             movieDes: value.movieDes,
             movieName: value.movieName,
-            movieTrailer: value.movieTrailer,
+            movieTrailer: value.movieTrailer
         })
         res.status(201).json({ movie })
     }catch(err) {
