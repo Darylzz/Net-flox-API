@@ -7,5 +7,6 @@ router.get("/", movieController.getAllMovie);
 router.get("/moviename", movieController.getMovieByName)
 router.get("/:movieId", movieController.getMovieById)
 router.post("/", upload.single("moviePic"), movieController.createMovie)
+router.delete("/:movieId", movieController.deleteMovie)
 
 module.exports = router;
