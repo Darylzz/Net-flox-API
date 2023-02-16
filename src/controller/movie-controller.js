@@ -55,7 +55,9 @@ exports.createMovie = async (req, res, next) => {
             movieName: req.body.movieName,
             movieTrailer: req.body.movieTrailer
         })
-
+        if (req.user.role !== "admin") {
+          return createError("You not have permission to create movie")
+        }
         const movie = await Movie.create({
             moviePic: value.moviePic,
             movieDes: value.movieDes,
@@ -75,6 +77,9 @@ exports.deleteMovie = async (req, res, next) => {
     })
     if (!movie) {
       createError("This movie not found", 400)
+    }
+    if (req.user.role !== "admin") {
+      return createError("You not have permission to delete movie")
     }
     await movie.destroy()
     res.status(200).json({message: "Delete movie success"})
